@@ -22,6 +22,62 @@
     </div>
     <script>
         // Suerte !
+
+        const btnGetCat = document.getElementById('get-cat');
+        const imgCat = document.getElementById('cat-image');
+        const width = document.querySelector('#width span');
+        const height = document.querySelector('#height span');
+
+        // Función para obtener un gato de la API
+        async function getCat() {
+            try {
+                const url = "https://api.thecatapi.com/v1/images/search?limit=1";
+                const response = await fetch(url);
+                const data = await response.json();
+
+                const cat = data[0];
+                imgCat.src = cat.url;
+                width.textContent = cat.width + " px";
+                height.textContent = cat.height + " px";
+            } catch (error) {
+                console.error("Error al obtener el gato:", error);
+            }
+        }
+
+        // Escuchar el clic en el botón
+        btnGetCat.addEventListener('click', getCat);
+
+        // Alternativa Clase //
+
+        /*
+                const btnGetCat = document.querySelector('#get-cat');
+                const imgCat = document.querySelector('#cat-image');
+                const width = document.querySelector('#width > span');
+                const height = document.querySelector('#height > span');
+        
+                btnGetCat.addEventListener("click", async function(){
+        
+                    // 1. Realizar la llamada fetch a la URL y obtener un gato
+                    const url = "https://api.thecatapi.com/v1/images/search?limit=1";
+                    
+                    const response = await fetch(url);
+                    console.log("🚀 ~ btnGetCat.addEventListener ~ response:", response);
+        
+                    // 2. Procesar la respuesta con response.json
+                    const data = await response.json();
+                    console.log("🚀 ~ btnGetCat.addEventListener ~ data:", data)
+        
+                    // 3. Actualizar los elementos del DOM correspondientes para colocal la imagen del gato y los valores width y height
+        
+                    const cat = data[0];
+        
+                    imgCat.src = cat.url;
+                    width.textContent = cat.width + " px";
+                    height.textContent = cat.height + " px";
+        
+                });
+        
+         */
     </script>
 </body>
 
